@@ -21,5 +21,6 @@ export default defineConfig({
     commonjsOptions: {
         include: [/epubjs/, /node_modules/],
     }
-  }
+  },
+  base: './',
 })
