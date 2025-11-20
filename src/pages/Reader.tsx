@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAtom } from 'jotai';
 import {
     currentBookAtom,
@@ -10,12 +10,11 @@ import {
     themeAtom,
     showSidebarAtom
 } from '@/store/atoms';
-import { getBook, updateBookProgress, Book, addBookmark, Bookmark } from '@/lib/db';
+import { getBook, updateBookProgress, addBookmark, Bookmark } from '@/lib/db';
 import ePub, { Book as EpubBook, Rendition } from 'epubjs';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Menu, ArrowLeft, MessageSquare, Search, Bookmark as BookmarkIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { TOCSidebar } from '@/components/TOCSidebar';
 import { SettingsMenu } from '@/components/SettingsMenu';
@@ -32,16 +31,16 @@ export default function Reader() {
   const navigate = useNavigate();
 
   const [book, setBook] = useAtom(currentBookAtom);
-  const [location, setLocation] = useAtom(currentLocationAtom);
+  const [, setLocation] = useAtom(currentLocationAtom);
   const [toc, setToc] = useAtom(tocAtom);
   const [fontSize] = useAtom(fontSizeAtom);
   const [fontFamily] = useAtom(fontFamilyAtom);
   const [lineHeight] = useAtom(lineHeightAtom);
   const [theme] = useAtom(themeAtom);
   const [showSidebar, setShowSidebar] = useAtom(showSidebarAtom);
-  const [showSearch, setShowSearch] = useAtom(showSearchAtom);
+  const [, setShowSearch] = useAtom(showSearchAtom);
   const [showChat, setShowChat] = useAtom(showChatAtom);
-  const [selection, setSelection] = useAtom(currentSelectionAtom);
+  const [, setSelection] = useAtom(currentSelectionAtom);
 
   const [rendition, setRendition] = useState<Rendition | null>(null);
   const [epubInstance, setEpubInstance] = useState<EpubBook | null>(null);
@@ -110,7 +109,7 @@ export default function Reader() {
         }
     });
 
-    rend.on('selected', (cfiRange: string, contents: any) => {
+    rend.on('selected', (cfiRange: string, _contents: any) => {
         setSelection({
             cfiRange,
             text: rend.getRange(cfiRange).toString(),
@@ -217,10 +216,11 @@ export default function Reader() {
 
       const location = rendition.currentLocation();
       // @ts-ignore
-      const cfi = location.start.cfi;
+      const cfi = location.start?.cfi;
 
       // Try to get a label (chapter name)
-      let label = `Page ${location.start.displayed.page}`;
+      // @ts-ignore
+      let label = `Page ${location.start?.displayed?.page}`;
       // @ts-ignore
       const item = epubInstance?.spine.get(cfi);
       if(item) {

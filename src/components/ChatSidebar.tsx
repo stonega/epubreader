@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAtom } from 'jotai';
 import { showChatAtom, aiApiKeyAtom, aiModelAtom, chatContextAtom } from '@/store/chatAtoms';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,10 +16,10 @@ interface ChatSidebarProps {
     rendition: Rendition | null;
 }
 
-export function ChatSidebar({ book, rendition }: ChatSidebarProps) {
+export function ChatSidebar({ rendition }: ChatSidebarProps) {
     const [showChat, setShowChat] = useAtom(showChatAtom);
     const [apiKey, setApiKey] = useAtom(aiApiKeyAtom);
-    const [model, setModel] = useAtom(aiModelAtom);
+    const [model] = useAtom(aiModelAtom);
     const [contextText, setContextText] = useState<string>('');
     const [selectedContext, setSelectedContext] = useAtom(chatContextAtom);
 

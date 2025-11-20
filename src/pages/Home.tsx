@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { booksAtom, isLoadingBooksAtom } from '@/store/atoms';
 import { addBook, getAllBooks, Book } from '@/lib/db';
