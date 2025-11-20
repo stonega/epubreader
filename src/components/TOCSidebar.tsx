@@ -4,7 +4,7 @@ import { tocAtom, showSidebarAtom, currentBookAtom } from '@/store/atoms';
 import { bookmarksAtom } from '@/store/bookmarkAtoms';
 import { deleteBookmark, getBookBookmarks } from '@/lib/db';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, List, Bookmark as BookmarkIcon, Trash2 } from 'lucide-react';
+import { X, Bookmark as BookmarkIcon, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useEffect } from 'react';

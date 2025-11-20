@@ -1,6 +1,5 @@
-import React from 'react';
 import { useAtom } from 'jotai';
-import { currentSelectionAtom, highlightsAtom } from '@/store/highlightsAtoms';
+import { currentSelectionAtom } from '@/store/highlightsAtoms';
 import { showChatAtom, chatContextAtom } from '@/store/chatAtoms';
 import { addHighlight, Highlight } from '@/lib/db';
 import { currentBookAtom } from '@/store/atoms';
@@ -15,8 +14,7 @@ interface SelectionMenuProps {
 export function SelectionMenu({ onHighlight }: SelectionMenuProps) {
     const [selection, setSelection] = useAtom(currentSelectionAtom);
     const [book] = useAtom(currentBookAtom);
-    const [showChat, setShowChat] = useAtom(showChatAtom);
-    const [, setContextText] = React.useState(""); // Used via chat component normally
+    const [, setShowChat] = useAtom(showChatAtom);
 
     if (!selection || !book) return null;
 

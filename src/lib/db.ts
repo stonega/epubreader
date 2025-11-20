@@ -50,7 +50,7 @@ const DB_NAME = 'epubreader-db';
 const DB_VERSION = 2;
 
 export const dbPromise = openDB<EpubReaderDB>(DB_NAME, DB_VERSION, {
-  upgrade(db, oldVersion, newVersion, transaction) {
+  upgrade(db, oldVersion, _newVersion, _transaction) {
     if (oldVersion < 1) {
       const bookStore = db.createObjectStore('books', { keyPath: 'id' });
       bookStore.createIndex('by-added', 'addedAt');

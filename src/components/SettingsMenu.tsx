@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAtom } from 'jotai';
 import { fontSizeAtom, fontFamilyAtom, lineHeightAtom, themeAtom } from '@/store/atoms';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';

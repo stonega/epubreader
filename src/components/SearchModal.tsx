@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAtom } from 'jotai';
 import { showSearchAtom, searchQueryAtom, searchResultsAtom, isSearchingAtom } from '@/store/searchAtoms';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -27,7 +27,7 @@ export function SearchModal({ book, onNavigate }: SearchModalProps) {
         try {
             // EpubJS search is a bit heavy, we run it.
             // Note: This searches the whole book which might be slow for large books.
-            const searchResults = await Promise.all(
+            await Promise.all(
                 // @ts-ignore
                 book.spine.spineItems.map(item =>
                     // @ts-ignore
@@ -36,15 +36,10 @@ export function SearchModal({ book, onNavigate }: SearchModalProps) {
                         .then(doc => {
                             const text = doc.textContent || "";
                             const regex = new RegExp(query, 'gi');
-                            const matches = [];
-                            let match;
-                            while ((match = regex.exec(text)) !== null) {
-                                matches.push({
-                                    cfi: item.cfiFromElement(doc.body), // Approximation, getting exact CFI for text node is harder without built-in search
-                                    excerpt: text.substring(Math.max(0, match.index - 20), Math.min(text.length, match.index + query.length + 20))
-                                });
+                            while (regex.exec(text) !== null) {
+                                // Logic to handle matches would go here if we were using this manual implementation
                             }
-                            return matches;
+                            return [];
                         })
                 )
             );
